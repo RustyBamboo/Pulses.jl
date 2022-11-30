@@ -73,7 +73,9 @@ result = optimize(compute, compute_j, pulse, LBFGS(); inplace = false)
 sol = Optim.minimizer(result)
 
 # plot(x, pulse)
-plot(x, sol)
+plot(t_r, sol, label=["x" "y"])
+plot!(title="Pulses", xlabel="Time [ns]", ylabel="Amplitude")
+savefig("hadamard.png")
 
 Optim.minimum(result)
 
