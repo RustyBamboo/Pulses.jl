@@ -2,6 +2,7 @@ using LinearAlgebra
 using Zygote
 using Optim
 using Plots; gr()
+using LaTeXStrings
 
 function solve(H::Vector{Matrix{ComplexF64}}, Δt::Float64)
     Ω = Δt .* H
@@ -75,10 +76,22 @@ sol = Optim.minimizer(result)
 # plot(x, pulse)
 plot(t_r, sol, label=["x" "y"])
 plot!(title="Pulses", xlabel="Time [ns]", ylabel="Amplitude")
-savefig("hadamard.png")
+# savefig("hadamard.png")
 
-Optim.minimum(result)
+H = [H_0 + p * X for p in sol[:,1]] + [p * Y for p in sol[:,2]]
+evolution = solve_state_history(H, 0.404, [1im; 0.; 0.])
 
-targ
+p_0 = [abs2(e[1]) for e in evolution]
+p_1 = [abs2(e[2]) for e in evolution]
 
-U_f = compute_u(sol)
+plot(t_r, p_0, label=L"$|0\rangle$")
+plot!(t_r, p_1, label=L"$|1\rangle$")
+plot!(title="Quantum State Evolution", xlabel="Time [ns]", ylabel="Probability")
+savefig("images/hadamard-state-evolution.png")
+
+
+rhos = [e[begin:2] * e[begin:2]' for e in evolution]
+
+s = bloch_sphere.create_bloch()
+s = bloch_sphere.plot_points!(s, rhos)
+bloch_sphere.save("images/hadamard-bloch.png", s)
