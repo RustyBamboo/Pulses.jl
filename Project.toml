@@ -1,0 +1,9 @@
+name = "Pulses"
+uuid = "d779ddca-0b25-4f0f-912c-267bc017e889"
+authors = ["RustyBamboo <d@volya.xyz>"]
+version = "0.1.0"
+
+[deps]
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+Optim = "429524aa-4258-5aef-a3af-852621145aeb"
+Zygote = "e88e6eb3-aa80-5325-afca-941959d7151f"

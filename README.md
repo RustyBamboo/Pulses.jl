@@ -10,15 +10,28 @@ Quantum systems, such as quantum computers, have parameters that we can control 
 
 ## Why Pulses.jl?
 
-There are many quantum optimal control software packages out in the universe, but they all have some sort of complexity that make them difficult to use. `Pulses.jl` attempts to be super simple, while also being quite powerful. We achieve this by utilizing [Julia](https://julialang.org/) and the Julia ecosystem, such as:
+There are many quantum optimal control software packages out in the universe, but they all have some sort of complexity that make them difficult to use. `Pulses.jl` attempts to be super simple (under 100 lines of code!), while also being quite powerful. We achieve this by utilizing [Julia](https://julialang.org/) and the Julia ecosystem, such as:
 
 - [Zygote.jl](https://github.com/FluxML/Zygote.jl) for automatic differentiation
 - [Optim.jl](https://github.com/JuliaNLSolvers/Optim.jl) for multivariate optimization
 
+## Usage
+
+```julia-repl
+] activate .
+target = [...;...]
+system = System(H_d, [H_c, ...])
+initial_pulse = [...]
+sol = Pulses.find_pulse(target, system, Δt, inital_pulse)
+```
+
+You may find more examples in [examples](examples).
+
 ## Examples
 
-![Pulses for Hadamard gate](images/hadamard.png)
-![Pulses for Hadamard gate](images/hadamard-state-evolution.png)
+Preparing the state $\ket{+} = H \ket{0}$
+
+![Pulses for Hadamard gate](images/hadamard.svg)
 ![Pulses for Hadamard gate](images/hadamard-bloch.png)
 
 ## License

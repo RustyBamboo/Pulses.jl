@@ -1,10 +1,10 @@
 
-module bloch_sphere
+module BlochSphere
 using Makie, CairoMakie, ColorSchemes
-
+set_theme!(theme_black())
 
 function bloch_sphere!(scene)
-    wireframe!(scene, Sphere(Point3f(0), 1f0), color=:gray3, linewidth=0.1, thickness = 0.6f0, transparency = true)
+    wireframe!(scene, Sphere(Point3f(0), 1f0), color=:white, linewidth=0.1, thickness = 0.6f0, transparency = true)
     return scene
 end
 
@@ -26,7 +26,7 @@ function plot_points!(scene, rhos::Vector{Matrix{ComplexF64}}; kwargs...)
     x = getindex.(out, 1)
     y = getindex.(out, 2)
     z = getindex.(out, 3)
-    scatter!(scene, x, y, z, color=1:length(out), colormap=:jet1, markersize=30)
+    scatter!(scene, x, y, z, color=1:length(out), colormap=:plasma, markersize=20)
     # lines!(scene, [0.0, x], [0.0, y], [0.0, z]; kwargs...)
     return scene
     # x,y,z
