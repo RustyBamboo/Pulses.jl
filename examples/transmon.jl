@@ -65,5 +65,8 @@ savefig("images/hadamard.svg")
 rhos = [e[begin:2] * e[begin:2]' for e in evolution]
 
 s = BlochSphere.create_bloch()
+s = BlochSphere.plot_arrow!(s, [1. 0; 0 0im], color=:green)
+s = BlochSphere.plot_arrow!(s, [1. 1; 1 1+0im]/2, color=:red)
 s = BlochSphere.plot_points!(s, rhos)
+# display(s.scene)
 BlochSphere.save("images/hadamard-bloch.png", s)

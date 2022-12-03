@@ -61,14 +61,14 @@ function compute_loss(target::Matrix{ComplexF64}, s::System, Δt::Float64, param
     H = hamiltonian(s, params)
     U = solve(H, Δt)
     u_targ_norm_psu = abs2(tr(target' * U))
-    1 - u_targ_norm_psu
+    return 1 - u_targ_norm_psu
 end
 
 """
     Compute the gradient of the loss
 """
 function compute_j_loss(target::Matrix{ComplexF64}, s::System, Δt::Float64, params)
-    reshape(jacobian((a) -> compute_loss(target, s, Δt, a), params)[1], size(params))
+    return reshape(jacobian((a) -> compute_loss(target, s, Δt, a), params)[1], size(params))
 end
 
 """
@@ -84,9 +84,7 @@ function find_pulse(target::Matrix{ComplexF64}, s::System, Δt::Float64, initial
     j_loss(x) = compute_j_loss(target, s, Δt, x)
     result = optimize(loss, j_loss, initial_pulse, LBFGS(); inplace = false)
     sol = Optim.minimizer(result)
-    sol
+    return sol
 end
 
-
-
-
+end

@@ -10,7 +10,7 @@ Quantum systems, such as quantum computers, have parameters that we can control 
 
 ## Why Pulses.jl?
 
-There are many quantum optimal control software packages out in the universe, but they all have some sort of complexity that make them difficult to use. `Pulses.jl` attempts to be super simple (under 100 lines of code!), while also being quite powerful. We achieve this by utilizing [Julia](https://julialang.org/) and the Julia ecosystem, such as:
+There are already many quantum optimal control software packages out in the universe. `Pulses.jl` attempts to be _tiny_ (under 100 lines of code!), while also being quite powerful. We achieve this by utilizing [Julia](https://julialang.org/) and the Julia ecosystem, such as:
 
 - [Zygote.jl](https://github.com/FluxML/Zygote.jl) for automatic differentiation
 - [Optim.jl](https://github.com/JuliaNLSolvers/Optim.jl) for multivariate optimization
