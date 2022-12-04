@@ -3,7 +3,7 @@ using Plots; gr()
 
 plot_font = "Computer Modern"
 default(fontfamily=plot_font,
-        linewidth=2, framestyle=:box, label=nothing, grid=true, label="")
+        linewidth=2, framestyle=:box, label=nothing, grid=true)
 scalefontsizes(1.3)
 
 # Drift Hamiltonian
@@ -54,7 +54,7 @@ a = rand(100,2)
 b = rand(100,2)
 
 
-inter2d_pulse(α,β) = sol + α*a + β*b
+inter2d_pulse((α,β)) = inital_pulse + α*a + β*b
 α_r = LinRange(-π, π, 200)
 β_r = α_r
 

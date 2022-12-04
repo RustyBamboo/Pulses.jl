@@ -57,18 +57,19 @@ end
 """
     Solve the system and compute loss with respect to a target
 """
-function compute_loss(target::Matrix{ComplexF64}, s::System, Δt::Float64, params)
+function compute_loss(target::Matrix{ComplexF64}, s::System, Δt::Float64, params; f_loss=LossFunctions.PSU)
     H = hamiltonian(s, params)
     U = solve(H, Δt)
-    u_targ_norm_psu = abs2(tr(target' * U))
-    return 1 - u_targ_norm_psu
+    return f_loss(target, U)
+    # u_targ_norm_psu = abs2(tr(target' * U))
+    # return 1 - u_targ_norm_psu
 end
 
 """
     Compute the gradient of the loss
 """
-function compute_j_loss(target::Matrix{ComplexF64}, s::System, Δt::Float64, params)
-    return reshape(jacobian((a) -> compute_loss(target, s, Δt, a), params)[1], size(params))
+function compute_j_loss(target::Matrix{ComplexF64}, s::System, Δt::Float64, params; f_loss=LossFunctions.PSU)
+    return reshape(jacobian((a) -> compute_loss(target, s, Δt, a; f_loss), params)[1], size(params))
 end
 
 """
@@ -79,12 +80,25 @@ function compute_u(s::System, pulse, Δt::Float64)
     return solve(H, Δt)
 end
 
-function find_pulse(target::Matrix{ComplexF64}, s::System, Δt::Float64, initial_pulse)
-    loss(x) = compute_loss(target, s, Δt, x)
-    j_loss(x) = compute_j_loss(target, s, Δt, x)
-    result = optimize(loss, j_loss, initial_pulse, LBFGS(); inplace = false)
+function find_pulse(target::Matrix{ComplexF64}, s::System, Δt::Float64, initial_pulse; f_loss=LossFunctions.PSU)
+    loss(x) = compute_loss(target, s, Δt, x; f_loss=f_loss)
+    j_loss(x) = compute_j_loss(target, s, Δt, x; f_loss=f_loss)
+    result = optimize(loss, j_loss, initial_pulse, LBFGS(); inplace=false)
     sol = Optim.minimizer(result)
     return sol
+end
+
+module LossFunctions
+using LinearAlgebra
+
+function PSU(T, U)
+    1 - abs2(tr(T' * U))
+end
+
+function SU(T, U)
+    1 - real((tr(T' * U)))^2
+end
+
 end
 
 end
