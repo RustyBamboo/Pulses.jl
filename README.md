@@ -34,6 +34,10 @@ Preparing the state $\ket{+} = H \ket{0}$
 ![Pulses for Hadamard gate](images/hadamard.svg)
 ![Pulses for Hadamard gate](images/hadamard-bloch.png)
 
+### Loss Landscape
+
+![Loss landscape](images/fun_loss_landscape.gif)
+
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
