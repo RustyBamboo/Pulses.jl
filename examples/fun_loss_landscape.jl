@@ -69,4 +69,37 @@ animation = @animate for i in range(0, stop = 2π, length = n)
     plot!(p[1], camera = (10 * (5 + 2*cos(i)), 10), background_color = :transparent)
 end
 
-gif(animation, "images/fun_loss_landscape.gif", fps=15)
+# gif(animation, "images/fun_loss_landscape_rand.gif", fps=15)
+
+# Create a bunch of random vectors and probe the landscape to create an average landscape
+
+function get_landscape()
+     a = rand(100,2)
+     b = rand(100,2)
+
+
+     inter2d_pulse((α,β)) = inital_pulse + α*a + β*b
+     α_r = LinRange(-π, π, 200)
+     β_r = α_r
+
+     P = collect(Iterators.product(α_r, β_r))
+     losses2d = loss.(inter2d_pulse.(P))
+     return losses2d
+end
+
+losses_all = zeros(200,200,n)
+
+Threads.@threads for i = 1:n
+     losses_all[:,:,i] = get_landscape()
+end
+
+
+using Statistics
+losses_all_mean = Statistics.mean(losses_all,  dims=3)
+
+animation = @animate for i in range(0, stop = 2π, length = n)
+     p = surface(α_r, β_r, losses_all_mean[:,:,1], c=:plasma, showaxis=false, legend=false)
+     plot!(p[1], camera = (10 * (5 + 2*cos(i)), 10), background_color = :transparent)
+ end
+ 
+ gif(animation, "images/fun_loss_landscape.gif", fps=15)
