@@ -33,10 +33,12 @@ Preparing the state $\ket{+} = H \ket{0}$
 
 ![Pulses for Hadamard gate](images/hadamard.svg)
 ![Pulses for Hadamard gate](images/hadamard-bloch.png)
-
-### Loss Landscape
-
 ![Loss landscape](images/fun_loss_landscape.gif)
+
+
+Controlled-NOT logical gate
+
+![CNOT](images/cnot_plot.gif)
 
 ## License
 
