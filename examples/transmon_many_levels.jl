@@ -125,15 +125,14 @@ animation = @animate for i in range(0, stop=2π, length=100)
     # plot!(p, title="Loss Landscape")
     plot!(p, camera=(10 * (5 + 3 * cos(i)), 10))
     # plot!(p, showaxis=false)
-
-    plot(p)
+    plot(p, background_color = :transparent)
 
 end
 
 gif(animation, "images/cnot_plot_loss.gif", fps=15)
 webm(animation, "images/cnot_plot_loss.webm", fps=15)
 
-
+theme(:dark)
 using Plots.PlotMeasures
 animation = @animate for i in 1:130
     l = @layout [
@@ -150,8 +149,8 @@ animation = @animate for i in 1:130
 
     p1 = plot(t_r, sol, label=[L"\alpha_0" L"\alpha_1"])
     plot!(p1, title="Pulses", xlabel="Time [ns]", ylabel="Amplitude")
-    vline!(p1, [t_r[idx]], line=(:black, 1))
-    vspan!(p1, [0, t_r[idx]]; color=:black, alpha=:0.2)
+    vline!(p1, [t_r[idx]], line=(:black, 1), label=:none)
+    vspan!(p1, [0, t_r[idx]]; color=:black, alpha=:0.2, label=:none)
     # fixed_y = zeros(40)
     # plot!(p[2], i, )
 

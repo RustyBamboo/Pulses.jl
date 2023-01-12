@@ -29,16 +29,54 @@ You may find more examples in [examples](examples).
 
 ## Examples
 
-Preparing the state $\ket{+} = H \ket{0}$
+Here are some examples and visualizations that were generated with `Pulses.jl`. The system Hamiltonians are taken to be [superconducting Transmons](https://en.wikipedia.org/wiki/Transmon).
 
-![Pulses for Hadamard gate](images/hadamard.svg)
-![Pulses for Hadamard gate](images/hadamard-bloch.png)
+Namely, the problem is the find pulses $\alpha(t)$ given a model of quantum device, whose Hamiltonian has the general form:
+
+$$H(t) = H_d + \sum_i \alpha_i(t) H_{ci}$$
+where $H_d$ is the _drift_ Hamiltonian, and $H_c$ are Hamiltonians that interact with the system with come coupling $\alpha(t)$. The quantum gates are then solutions to the Schrödinger equation:
+
+$$U(t_f, t_i) = \mathcal{T} \exp\left(-i \int_{t_i}^{t_f} H(t) dt\right).$$
+
+The goal is to find $\alpha(t)$ such that $U$ is equal to our desired quantum gate.
+
+### Hadamard Gate (H)
+
+We want the Hadamard gate, which in matrix form is:
+
+```math
+H = \frac{1}{\sqrt{2}} \begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}
+```
+
+`Pulses.jl` finds the minimum of this loss landscape:
+
 ![Loss landscape](images/fun_loss_landscape.gif)
 
+We then plot the found pulses, and also evolve a qubit in time using the pulses. Namely, starting in the state $\ket{0}$, we look at $\ket{\psi(t)} = U(t)\ket{0}$, where at final $t=T$, $\ket{\psi(T)} = H\ket{0} = \frac{1}{\sqrt{2}}\left(\ket{0} + \ket{1}\right)$.
 
-Controlled-NOT logical gate
+![Pulses for Hadamard gate](images/hadamard.svg)
 
-![CNOT](images/cnot_plot.gif)
+Plot of $\ket{\psi(t)}$ on the [Bloch sphere](https://en.wikipedia.org/wiki/Bloch_sphere):
+
+![Pulses for Hadamard gate](images/hadamard-bloch.png)
+
+
+### Controlled-NOT (CNOT)
+
+We want the CNOT gate, which in matrix form is:
+
+```math
+CNOT = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 1 & 0 \end{bmatrix}
+```
+
+`Pulses.jl` finds the minimum of this loss landscape:
+
+![CNOT](images/cnot_plot_loss.gif)
+
+We then plot the evolution of the gate $U(t)$ given the found pulses. At final moment in time $t=T$, the gate is indeed $U(T) = CNOT$.
+
+![CNOT](images/cnot_plot_gate.gif)
+
 
 ## License
 
