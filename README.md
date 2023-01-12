@@ -77,6 +77,22 @@ We then plot the evolution of the gate $U(t)$ given the found pulses. At final m
 
 ![CNOT](images/cnot_plot_gate.gif)
 
+## How to cite
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7443246.svg)](https://doi.org/10.5281/zenodo.7443246)
+
+```
+@software{Volya_Pulses_jl_A_tiny_2022,
+    author = {Volya, Daniel},
+    title = {{Pulses.jl: A tiny quantum optimal control library.}},
+    month = {12},
+    year = {2022},
+    publisher = {Zenodo},
+    url = {https://github.com/RustyBamboo/Pulses.jl},
+}
+```
+
+
 
 ## License
 

@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Volya"
+  given-names: "Daniel"
+  orcid: "https://orcid.org/0000-0001-5026-5646"
+title: "Pulses.jl: A tiny quantum optimal control library."
+date-released: 2022-12-15
+url: "https://github.com/RustyBamboo/Pulses.jl"
